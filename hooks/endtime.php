@@ -110,7 +110,7 @@ class endtime {
 	public function _report_validate()
 	{
 		$this->post_data = Event::$data;
-		$this->post_data->add_rules('end_incident_date','required','date_mmddyyyy');
+		$this->post_data->add_rules('end_incident_date','date_mmddyyyy');
 	}
 	
 	/**

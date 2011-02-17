@@ -89,7 +89,7 @@ class endtime {
 		}		
 		else //initialize to now
 		{
-			$view->applicable = 1;
+			$view->applicable = 0;
 			$form['end_incident_date'] = date("m/d/Y",time());
 			$form['end_incident_hour'] = date('h', time());
 			$form['end_incident_ampm'] = date('a', time());

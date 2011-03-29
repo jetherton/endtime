@@ -1,5 +1,5 @@
 === About ===
-name: Ent Time
+name: End Time
 website: http://www.ushahidi.com
 description: Adds a field for the end time of an event
 version: 0.5

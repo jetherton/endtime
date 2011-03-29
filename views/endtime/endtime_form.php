@@ -22,9 +22,12 @@
 				
 				print '<span class="dots">:</span>';
 			
-				print '<span class="sel-holder" style="padding:1px 3px;">00</span>';
+				print '<span class="sel-holder">' .
+				form::dropdown('end_incident_minute', $minute_array,
+				$form['end_incident_minute']) . '</span>';
 				
 				print '<span class="dots">:</span>';
+				
 				
 				print '<span class="sel-holder">' .
 				form::dropdown('end_incident_ampm', $ampm_array,

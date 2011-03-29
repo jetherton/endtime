@@ -78,12 +78,14 @@ class endtime {
 				$i_date_time = $incident->incident_date;
 				$form['end_incident_date'] = date('m/d/Y', strtotime($i_date_time));
 				$form['end_incident_hour'] = date('h', strtotime($i_date_time));
+				$form['end_incident_minute'] = date('i', strtotime($i_date_time));
 				$form['end_incident_ampm'] = date('a', strtotime($i_date_time));
 			}
 			else
 			{
 				$form['end_incident_date'] = date('m/d/Y', strtotime($endtime_date));
 				$form['end_incident_hour'] = date('h', strtotime($endtime_date));
+				$form['end_incident_minute'] = date('i', strtotime($endtime_date));
 				$form['end_incident_ampm'] = date('a', strtotime($endtime_date));
 			}
 		}		
@@ -92,10 +94,12 @@ class endtime {
 			$view->applicable = 0;
 			$form['end_incident_date'] = date("m/d/Y",time());
 			$form['end_incident_hour'] = date('h', time());
+			$form['end_incident_minute'] = date('i', time());
 			$form['end_incident_ampm'] = date('a', time());
 		}
 		
 		// Time formatting
+		$view->minute_array = $this->_minute_array();
 		$view->hour_array = $this->_hour_array();
 		$view->ampm_array = $this->_ampm_array();
 		$view->date_picker_js = $this->_date_picker_js();
@@ -133,7 +137,7 @@ class endtime {
 			//create the date
 			$incident_date=explode("/",$post->end_incident_date);
 			$incident_date=$incident_date[2]."-".$incident_date[0]."-".$incident_date[1];
-			$incident_time = $post->end_incident_hour . ":00:00 " . $post->end_incident_ampm;
+			$incident_time = $post->end_incident_hour . ":".$post->end_incident_minute.":00 " . $post->end_incident_ampm;
 			
 			$endtime->endtime_date = date( "Y-m-d H:i:s", strtotime($incident_date . " " . $incident_time) );
 			$endtime->save();
@@ -168,6 +172,16 @@ class endtime {
             $hour_array[sprintf("%02d", $i)] = sprintf("%02d", $i);     // Add Leading Zero
         }
         return $hour_array;
+    }
+    
+    	// Time functions
+    private function _minute_array()
+    {
+        for ($i=0; $i <= 59 ; $i++)
+        {
+            $minute_array[sprintf("%02d", $i)] = sprintf("%02d", $i);     // Add Leading Zero
+        }
+        return $minute_array;
     }
 
 

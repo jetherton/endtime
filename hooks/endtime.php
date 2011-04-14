@@ -136,6 +136,10 @@ class endtime {
 			$endtime->applicable = isset($post['endtime_applicable']) ?  "1" : "0";
 			//create the date
 			$incident_date=explode("/",$post->end_incident_date);
+			if(count($incident_date) < 3)
+			{
+				return;
+			}			
 			$incident_date=$incident_date[2]."-".$incident_date[0]."-".$incident_date[1];
 			$incident_time = $post->end_incident_hour . ":".$post->end_incident_minute.":00 " . $post->end_incident_ampm;
 			

@@ -2,9 +2,10 @@
 {
 ?>
 
-					<li>
-						<small>End Time</small>
-						<?php echo date('M j Y, H:00', strtotime($end_date)); ?>
+					<br/>
+					<span class="r_date">
+						End Time:
+						<?php echo date('H:i M j Y', strtotime($end_date)); ?>
 					</li>
 					
 <?php } ?>

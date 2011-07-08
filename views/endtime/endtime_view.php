@@ -4,7 +4,7 @@
 
 					<br/>
 					<span class="r_date">
-						End Time:
+						<?php echo Kohana::lang('endtime.endtime');?>:
 						<?php echo date('H:i M j Y', strtotime($end_date)); ?>
 					</li>
 					

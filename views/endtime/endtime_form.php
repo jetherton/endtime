@@ -1,11 +1,12 @@
 
 <div class="row">
 	<h4>
-		End Time:
-		<span>Time that the event stopped.</span>
+		<?php echo Kohana::lang('endtime.endtime');?>
 		
-		<div style="margin-left: 20px;">Applicable? <?php print form::checkbox('endtime_applicable', $applicable, $applicable); ?> 
-		<span>Is an end time applicable to this report?</span></div>
+		<span><?php echo Kohana::lang('endtime.endtime_description');?></span>
+		
+		<div style="margin-left: 20px;"><?php echo Kohana::lang('endtime.applicable');?> <?php print form::checkbox('endtime_applicable', $applicable, $applicable); ?> 
+		<span><?php echo Kohana::lang('endtime.applicable_description');?></span></div>
 	</h4>
 	<!--<div style = "border: 1px solid black; margin-left:10px;">-->
 		<div id="endtime_form" style="margin-left:30px; <?php echo (($applicable == "1") ? "" : "display:none;"); ?>" >

@@ -114,7 +114,10 @@ class endtime {
 	public function _report_validate()
 	{
 		$this->post_data = Event::$data;
-		$this->post_data->add_rules('end_incident_date','date_mmddyyyy');
+		if(is_object($this->post_data))
+		{
+			$this->post_data->add_rules('end_incident_date','date_mmddyyyy');
+		}
 	}
 	
 	/**
@@ -135,13 +138,27 @@ class endtime {
 			$endtime->incident_id = $incident->id;
 			$endtime->applicable = isset($post['endtime_applicable']) ?  "1" : "0";
 			//create the date
-			$incident_date=explode("/",$post->end_incident_date);
+			if(is_object($post))
+			{
+				$incident_date=explode("/",$post->end_incident_date);
+			}
+			else
+			{
+				$incident_date=explode("/",$post["end_incident_date"]);
+			}
 			if(count($incident_date) < 3)
 			{
 				return;
 			}			
 			$incident_date=$incident_date[2]."-".$incident_date[0]."-".$incident_date[1];
-			$incident_time = $post->end_incident_hour . ":".$post->end_incident_minute.":00 " . $post->end_incident_ampm;
+			if(is_object($post))
+			{
+				$incident_time = $post->end_incident_hour . ":".$post->end_incident_minute.":00 " . $post->end_incident_ampm;
+			}
+			else
+			{
+				$incident_time = $post["end_incident_hour"] . ":".$post["end_incident_minute"].":00 " . $post["end_incident_ampm"];
+			}
 			
 			$endtime->endtime_date = date( "Y-m-d H:i:s", strtotime($incident_date . " " . $incident_time) );
 			$endtime->save();

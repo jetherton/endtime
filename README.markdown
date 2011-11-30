@@ -1,16 +1,16 @@
-End Time Ushahidi Plugin
+End Time - Ushahidi Plugin
 ===============
 
 About
 ---------
-name: End Time
-website: https://github.com/jetherton/endtime
-description: Adds a field for the end time of an event
-version: 1.0
-requires: 2.0
-tested up to: 2.1
-author: John Etherton
-author website: http://johnetherton.com
+* name: End Time
+* website: https://github.com/jetherton/endtime
+* description: Adds a field for the end time of an event
+* version: 1.0
+* requires: 2.0
+* tested up to: 2.1
+* author: John Etherton
+* author website: http://johnetherton.com
 
 Description
 -----------------

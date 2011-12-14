@@ -36,7 +36,19 @@ class Endtime_Install {
 				  `endtime_date` datetime DEFAULT NULL,
 				  `applicable` tinyint(4) DEFAULT '1',
 				  PRIMARY KEY (`id`)
-				) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1");
+        ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1");
+
+    $this->db->query("INSERT INTO `".Kohana::config('database.default.table_prefix')."scheduler` (
+      `id`, 
+      `scheduler_name`, 
+      `scheduler_last`, 
+      `scheduler_weekday`, 
+      `scheduler_day`, 
+      `scheduler_hour`, 
+      `scheduler_minute`, 
+      `scheduler_controller`, 
+      `scheduler_active`) 
+      VALUES (NULL, 'Endtime', '0', '-1', '-1', '-1', '', 's_endtime', '1')");
 	}
 
 	/**
@@ -45,5 +57,6 @@ class Endtime_Install {
 	public function uninstall()
 	{
 		$this->db->query('DROP TABLE `'.Kohana::config('database.default.table_prefix').'endtime`');
+		$this->db->query('DELETE FROM `'.Kohana::config('database.default.table_prefix').'scheduler` WHERE `scheduler_name`="Endtime"');
 	}
 }

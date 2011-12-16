@@ -21,13 +21,14 @@ class S_Endtime_Controller extends Controller {
   {
     $endtimes = ORM::factory('endtime')
       ->with('incident')
-      ->where(array('incident_active' => '1', 'endtime_date <' => 'NOW()'))
+      // Does the use of php date cause an issue with application timezone vs system timezone?
+      ->where(array('incident_active' => '1', 'endtime_date <' => date("Y-m-d H:i:s")))
       ->find_all();
 
-    //Kohana::log('info', 'S_Endtime_Controller::index: '. print_r($incidents, 3));
+    Kohana::log('debug', 'S_Endtime_Controller::index: '. print_r($endtimes, 1));
 
     foreach($endtimes as $endtime){
-      Kohana::log('info', 'S_Endtime_Controller::index: '. print_r($endtime->incident->incident_title, 1));
+      Kohana::log('info', 'S_Endtime_Controller::index Setting '. $endtime->incident->incident_title .'('. $endtime->incident_id .') to inactive');
       $incident = ORM::factory('incident')
         ->where('id', $endtime->incident->id)
         ->find();

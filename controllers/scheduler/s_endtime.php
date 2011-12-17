@@ -19,10 +19,16 @@ class S_Endtime_Controller extends Controller {
 	
 	public function index() 
   {
+    // remain_on_map is not intended to be a boolean value, but instead allow a number of 
+    // different values that will map to different actions to be taken when the incident
+    // reaches its endtime. Ie. change marker icon, send notification
     $endtimes = ORM::factory('endtime')
       ->with('incident')
       // Does the use of php date cause an issue with application timezone vs system timezone?
-      ->where(array('incident_active' => '1', 'endtime_date <' => date("Y-m-d H:i:s")))
+      ->where(array(
+        'incident_active' => '1', 
+        'endtime_date <' => date("Y-m-d H:i:s"),
+        'remain_on_map' => '1'))
       ->find_all();
 
     Kohana::log('debug', 'S_Endtime_Controller::index: '. print_r($endtimes, 1));

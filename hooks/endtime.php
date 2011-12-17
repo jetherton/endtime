@@ -36,10 +36,10 @@ class endtime {
 		// Hook into the report_edit (post_SAVE) event
 		Event::add('ushahidi_action.report_edit', array($this, '_report_form_submit'));
 
-	
+
 		// Hook into the Report view (front end)
-		Event::add('ushahidi_action.report_meta_after_time', array($this, '_report_view'));
-		
+    Event::add('ushahidi_action.report_meta_after_time', array($this, '_report_view'));
+
 	}
 	
 	/**
@@ -70,6 +70,7 @@ class endtime {
 				->find();
 
 			$view->applicable = $endtime_item->applicable;
+			$view->remain_on_map = $endtime_item->remain_on_map;
 			$endtime_date = $endtime_item->endtime_date;
 			
 			if($endtime_date == "")
@@ -92,6 +93,7 @@ class endtime {
 		else //initialize to now
 		{
 			$view->applicable = 0;
+			$view->remain_on_map= 0;
 			$form['end_incident_date'] = date("m/d/Y",time());
 			$form['end_incident_hour'] = date('h', time());
 			$form['end_incident_minute'] = date('i', time());
@@ -117,6 +119,7 @@ class endtime {
 		if(is_object($this->post_data))
 		{
 			$this->post_data->add_rules('end_incident_date','date_mmddyyyy');
+			$this->post_data->add_rules('remain_on_map','digit');
 		}
 	}
 	
@@ -137,6 +140,7 @@ class endtime {
 				->find();
 			$endtime->incident_id = $incident->id;
 			$endtime->applicable = isset($post['endtime_applicable']) ?  "1" : "0";
+			$endtime->remain_on_map = isset($post['remain_on_map']) ? $post['remain_on_map'] : "0";
 			//create the date
 			if(is_object($post))
 			{
@@ -180,6 +184,7 @@ class endtime {
 		$view = View::factory('endtime/endtime_view');
 		$view->end_date = $endtime->endtime_date;
 		$view->applicable = $endtime->applicable;
+		$view->remain_on_map = $endtime->remain_on_map;
 		$view->render(TRUE);
 	}
 	

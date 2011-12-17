@@ -34,7 +34,8 @@ class Endtime_Install {
 				  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
 				  `incident_id` int(11) NOT NULL,
 				  `endtime_date` datetime DEFAULT NULL,
-				  `applicable` tinyint(4) DEFAULT '1',
+          `applicable` tinyint(4) DEFAULT '1',
+          `remain_on_map` tinyint(4) DEFAULT '0',
 				  PRIMARY KEY (`id`)
         ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1");
 
@@ -66,5 +67,12 @@ class Endtime_Install {
 
 		$this->db->query('DROP TABLE `'.Kohana::config('database.default.table_prefix').'endtime`');
 		$this->db->query('DELETE FROM `'.Kohana::config('database.default.table_prefix').'scheduler` WHERE `scheduler_name`="Endtime"');
-	}
+  }
+
+  /**
+   * There is a way to up date ushahidi core, but there does not seem to 
+   * be a way to update modules.  Updates made to the endtime schema from
+   * March-Hare Communications Collective on 2011-12-16:
+   * ALTER TABLE `endtime` ADD `remain_on_map` TINYINT( 4 ) NOT NULL 
+   */
 }

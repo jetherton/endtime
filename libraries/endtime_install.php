@@ -40,6 +40,22 @@ class Endtime_Install {
         ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1");
 
 
+    /**
+     * Updates made to the endtime schema from March-Hare Communications 
+     * Collective on 2011-12-16:
+     * ALTER TABLE `endtime` ADD `remain_on_map` TINYINT( 4 ) NOT NULL 
+     */
+    $has_remain_on_map = false;
+    foreach($this->db->field_data(Kohana::config('database.default.table_prefix')."endtime") as $field) {
+      if ($field->Field == 'remain_on_map') {
+        $has_remain_on_map = true;
+        break;
+      }
+    }
+    if (!$has_remain_on_map) {
+      $this->db->query('ALTER TABLE '. Kohana::config('database.default.table_prefix') .'`endtime` ADD `remain_on_map` TINYINT( 4 ) NOT NULL');
+    }
+
     $s_endtime = ORM::factory('scheduler')
       ->where(array('scheduler_name' => 'Endtime'))
       ->find();
@@ -69,10 +85,4 @@ class Endtime_Install {
 		$this->db->query('DELETE FROM `'.Kohana::config('database.default.table_prefix').'scheduler` WHERE `scheduler_name`="Endtime"');
   }
 
-  /**
-   * There is a way to up date ushahidi core, but there does not seem to 
-   * be a way to update modules.  Updates made to the endtime schema from
-   * March-Hare Communications Collective on 2011-12-16:
-   * ALTER TABLE `endtime` ADD `remain_on_map` TINYINT( 4 ) NOT NULL 
-   */
 }

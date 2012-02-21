@@ -119,7 +119,6 @@ class endtime {
 		if(is_object($this->post_data))
 		{
 			$this->post_data->add_rules('end_incident_date','date_mmddyyyy');
-			$this->post_data->add_rules('remain_on_map','digit');
 		}
 	}
 	
@@ -140,7 +139,7 @@ class endtime {
 				->find();
 			$endtime->incident_id = $incident->id;
 			$endtime->applicable = isset($post['endtime_applicable']) ?  "1" : "0";
-			$endtime->remain_on_map = isset($post['remain_on_map']) ? $post['remain_on_map'] : "0";
+
 			//create the date
 			if(is_object($post))
 			{
@@ -191,7 +190,7 @@ class endtime {
 	
 	
 	// Time functions
-    private function _hour_array()
+    protected function _hour_array()
     {
         for ($i=1; $i <= 12 ; $i++)
         {
@@ -201,7 +200,7 @@ class endtime {
     }
     
     	// Time functions
-    private function _minute_array()
+    protected function _minute_array()
     {
         for ($i=0; $i <= 59 ; $i++)
         {
@@ -211,12 +210,12 @@ class endtime {
     }
 
 
-    private function _ampm_array()
+    protected function _ampm_array()
     {
         return $ampm_array = array('pm'=>Kohana::lang('ui_admin.pm'),'am'=>Kohana::lang('ui_admin.am'));
     }
 
-    private function _date_picker_js()
+    protected function _date_picker_js()
     {
         return "<script type=\"text/javascript\">
                 $(document).ready(function() {
